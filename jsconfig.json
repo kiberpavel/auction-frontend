@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@api": ["./api"],
+      "@feature": ["./feature"],
+      "@constants": ["./constants"],
+      "@store": ["./store"],
+      "@assets": ["./assets"],
+      "@images": ["./assets/img"],
+      "@icons": ["./assets/icons"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
