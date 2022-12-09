@@ -6,7 +6,7 @@
       "@feature": ["./feature"],
       "@constants": ["./constants"],
       "@store": ["./store"],
-      "@assets": ["./assets"],
+      "@router": ["./router"],
       "@images": ["./assets/img"],
       "@icons": ["./assets/icons"]
     }
