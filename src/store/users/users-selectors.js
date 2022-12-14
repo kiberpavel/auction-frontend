@@ -18,10 +18,15 @@ const getLogInStatus = state => {
   return state.users.isLogIn;
 };
 
+const getToken = state => {
+  return state.users.token;
+};
+
 export default {
   getEmail,
   getPassword,
   getError,
   getErrorStatus,
   getLogInStatus,
+  getToken,
 };

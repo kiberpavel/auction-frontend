@@ -7,8 +7,8 @@
       "@constants": ["./constants"],
       "@store": ["./store"],
       "@router": ["./router"],
-      "@images": ["./assets/img"],
-      "@icons": ["./assets/icons"]
+      "@images": ["./images"],
+      "@common": ["./common"]
     }
   },
   "exclude": ["node_modules"]

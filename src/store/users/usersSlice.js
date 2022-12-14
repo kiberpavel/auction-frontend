@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { setUser, userLogin, socialLogin } from '@api/user';
+import { setUser, userLogin, socialLogin, currentUser } from '@api/user';
 
 export const addUser = createAsyncThunk(
   'user/addUser',
@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
 );
 
 export const loginUserViaSocial = createAsyncThunk(
-  'userLoginUserViaSocial',
+  'user/loginUserViaSocial',
   async (data, { rejectWithValue }) => {
     try {
       const response = await socialLogin(data);
@@ -36,6 +36,19 @@ export const loginUserViaSocial = createAsyncThunk(
       return response.data;
     } catch ({ response }) {
       return rejectWithValue(response.data.detail);
+    }
+  },
+);
+
+export const getCurrentUser = createAsyncThunk(
+  'user/getCurrentUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await currentUser();
+
+      return response.data;
+    } catch ({ response }) {
+      return rejectWithValue(response.data.message);
     }
   },
 );
@@ -48,6 +61,7 @@ const initialState = {
   hasErrors: false,
   token: '',
   isLogIn: false,
+  id: '',
 };
 
 const resetUserPendingData = state => {
@@ -58,6 +72,7 @@ const resetUserPendingData = state => {
   state.error = '';
   state.token = '';
   state.isLogIn = false;
+  localStorage.setItem('token', JSON.stringify(''));
 };
 
 const setUserRejectedData = (state, action) => {
@@ -68,6 +83,7 @@ const setUserRejectedData = (state, action) => {
 const setLoginFulfilledData = (state, action) => {
   state.isLogIn = true;
   state.token = action.payload.token;
+  localStorage.setItem('token', JSON.stringify(state.token));
 };
 
 export const usersSlice = createSlice({
@@ -79,6 +95,9 @@ export const usersSlice = createSlice({
     },
     setPassword: (state, action) => {
       state.password = action.payload;
+    },
+    logOutUser: state => {
+      resetUserPendingData(state);
     },
   },
   extraReducers: builder => {
@@ -109,9 +128,16 @@ export const usersSlice = createSlice({
     builder.addCase(loginUserViaSocial.fulfilled, (state, action) => {
       setLoginFulfilledData(state, action);
     });
+    builder.addCase(getCurrentUser.rejected, (state, action) => {
+      setUserRejectedData(state, action);
+    });
+    builder.addCase(getCurrentUser.fulfilled, (state, action) => {
+      state.id = action.payload.id;
+      state.email = action.payload.email;
+    });
   },
 });
 
-export const { setEmail, setPassword } = usersSlice.actions;
+export const { setEmail, setPassword, logOutUser } = usersSlice.actions;
 
 export default usersSlice.reducer;
