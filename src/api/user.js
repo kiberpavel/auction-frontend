@@ -1,8 +1,13 @@
 import axios from 'axios';
-import { getRegisterPath } from '@constants/api';
-import { getLoginPath } from '@constants/api';
-import { getSocialLoginPath } from '@constants/api';
+import {
+  getRegisterPath,
+  getLoginPath,
+  getSocialLoginPath,
+  getCurrentUserPath,
+} from '@constants/api';
+import { authAxios } from '@constants/axios';
 
 export const setUser = data => axios.post(getRegisterPath, data);
 export const userLogin = data => axios.post(getLoginPath, data);
 export const socialLogin = data => axios.post(getSocialLoginPath, data);
+export const currentUser = () => authAxios.get(getCurrentUserPath);
