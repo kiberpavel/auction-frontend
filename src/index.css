@@ -16,3 +16,14 @@ code {
   width: 1200px;
   margin: 0 auto;
 }
+
+.header-link {
+  text-decoration: none;
+  color: var(--bs-nav-link-color)!important;
+}
+
+.header-button {
+  border: 0;
+  background-color: transparent;
+  color: var(--bs-nav-link-color)!important;
+}

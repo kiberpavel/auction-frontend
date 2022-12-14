@@ -1,6 +1,7 @@
 import RegisterPage from '@feature/RegisterPage/RegisterPage';
 import HomePage from '@feature/HomePage/HomePage';
 import LoginPage from '@feature/LoginPage/LoginPage';
+import ProfilePage from '@feature/ProfilePage/ProfilePage';
 
 const routes = [
   {
@@ -20,6 +21,12 @@ const routes = [
     path: '/login',
     element: <LoginPage />,
     protected: false,
+  },
+  {
+    id: 4,
+    path: '/profile',
+    element: <ProfilePage />,
+    protected: true,
   },
 ];
 
