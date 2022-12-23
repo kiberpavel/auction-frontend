@@ -23,6 +23,11 @@ const Header = () => {
                 Home
               </Link>
             </Navbar.Text>
+            <Navbar.Text>
+              <Link className="header-link" to="/lot/create">
+                Create lot
+              </Link>
+            </Navbar.Text>
           </Nav>
           <Nav>
             <Navbar.Text>

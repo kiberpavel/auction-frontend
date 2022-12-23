@@ -22,6 +22,10 @@ const getToken = state => {
   return state.users.token;
 };
 
+const getId = state => {
+  return state.users.id;
+};
+
 export default {
   getEmail,
   getPassword,
@@ -29,4 +33,5 @@ export default {
   getErrorStatus,
   getLogInStatus,
   getToken,
+  getId,
 };
