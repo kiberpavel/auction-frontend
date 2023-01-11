@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import { Alert, Button } from 'react-bootstrap';
+import { Alert, Button, Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import lotsSelectors from '@store/lots/lots-selectors';
 import { useDispatch } from 'react-redux';
@@ -33,7 +33,7 @@ const LotForm = ({
   };
 
   return (
-    <div>
+    <Container className="vh-100 mt-5">
       <section className="mx-auto w-50">
         {hasError === true ? (
           <Alert key="danger" variant="danger">
@@ -47,43 +47,45 @@ const LotForm = ({
           ''
         )}
       </section>
-      <Form className="w-50">
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Short name</Form.Label>
-          <Form.Control
-            type="text"
-            value={shortName}
-            placeholder="Vase"
-            onChange={setLotShortName}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            type="text"
-            value={description}
-            placeholder="Good condition"
-            onChange={setLotDescription}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Price</Form.Label>
-          <Form.Control
-            type="number"
-            value={price}
-            placeholder="3.4"
-            onChange={setLotPrice}
-          />
-        </Form.Group>
-        <Form.Group controlId="formFile" className="mb-3">
-          <Form.Label>File</Form.Label>
-          <Form.Control type="file" onChange={handleFileSelect} />
-        </Form.Group>
-        <Button variant="primary" type="submit" onClick={submitForm}>
-          Submit
-        </Button>
-      </Form>
-    </div>
+      <section className="d-flex justify-content-center">
+        <Form className="w-50">
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Short name</Form.Label>
+            <Form.Control
+              type="text"
+              value={shortName}
+              placeholder="Vase"
+              onChange={setLotShortName}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              type="text"
+              value={description}
+              placeholder="Good condition"
+              onChange={setLotDescription}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Price</Form.Label>
+            <Form.Control
+              type="number"
+              value={price}
+              placeholder="3.4"
+              onChange={setLotPrice}
+            />
+          </Form.Group>
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>File</Form.Label>
+            <Form.Control type="file" onChange={handleFileSelect} />
+          </Form.Group>
+          <Button variant="primary" type="submit" onClick={submitForm}>
+            Submit
+          </Button>
+        </Form>
+      </section>
+    </Container>
   );
 };
 

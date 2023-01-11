@@ -19,17 +19,17 @@ const Header = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Navbar.Text>
-              <Link className="header-link" to="/">
+              <Link className="header-link me-4" to="/">
                 Home
               </Link>
             </Navbar.Text>
             <Navbar.Text>
-              <Link className="header-link" to="/lot/create">
+              <Link className="header-link me-4" to="/lot/create">
                 Create lot
               </Link>
             </Navbar.Text>
             <Navbar.Text>
-              <Link className="header-link" to="/lot/list">
+              <Link className="header-link me-4" to="/lot/list">
                 Lots list
               </Link>
             </Navbar.Text>
@@ -40,7 +40,7 @@ const Header = () => {
                 Profile
               </Link>
             </Navbar.Text>
-            <button className="header-button" onClick={doLogOut}>
+            <button className="header-button ms-4" onClick={doLogOut}>
               LogOut
             </button>
           </Nav>

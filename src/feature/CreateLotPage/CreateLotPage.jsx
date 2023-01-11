@@ -43,7 +43,8 @@ const CreateLotPage = () => {
     event.preventDefault();
   };
   return (
-    <div>
+    <div className="mt-5">
+      <h1 className="mx-auto w-25 mb-xl-5">Lot creation</h1>
       <LotForm
         submitForm={submitForm}
         setSelectedFile={setSelectedFile}
