@@ -28,6 +28,11 @@ const Header = () => {
                 Create lot
               </Link>
             </Navbar.Text>
+            <Navbar.Text>
+              <Link className="header-link" to="/lot/list">
+                Lots list
+              </Link>
+            </Navbar.Text>
           </Nav>
           <Nav>
             <Navbar.Text>
