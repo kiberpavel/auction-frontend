@@ -8,10 +8,12 @@ import {
   setHasErrors,
   setMessage,
 } from '@store/lots/lotsSlice';
+import { useNavigate } from 'react-router-dom';
 
 const EditLotPage = () => {
   let formData = new FormData();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(setHasErrors(false));
@@ -27,12 +29,17 @@ const EditLotPage = () => {
 
   const submitForm = event => {
     formData.append('id', id);
-    formData.append('lot_image', selectedFile);
+    if (selectedFile) {
+      formData.append('lot_image', selectedFile);
+    }
     formData.append('short_name', shortName);
     formData.append('description', description);
     formData.append('price', price);
     dispatch(editLot(formData));
     event.preventDefault();
+    setTimeout(() => {
+      navigate('/');
+    }, 2000);
   };
   return (
     <div className="mt-5">

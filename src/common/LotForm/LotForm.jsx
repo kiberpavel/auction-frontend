@@ -94,7 +94,7 @@ LotForm.propTypes = {
   setSelectedFile: PropTypes.func,
   shortName: PropTypes.string,
   description: PropTypes.string,
-  price: PropTypes.number,
+  price: PropTypes.string,
 };
 
 export default LotForm;

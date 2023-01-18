@@ -13,10 +13,12 @@ import {
   setPrice,
   setShortName,
 } from '@store/lots/lotsSlice';
+import { useNavigate } from 'react-router-dom';
 
 const CreateLotPage = () => {
   let formData = new FormData();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(setShortName(''));
@@ -41,6 +43,9 @@ const CreateLotPage = () => {
     formData.append('user_id', userId);
     dispatch(createLot(formData));
     event.preventDefault();
+    setTimeout(() => {
+      navigate('/');
+    }, 2000);
   };
   return (
     <div className="mt-5">
