@@ -1,12 +1,15 @@
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import { logOutUser } from '@store/users/usersSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import usersSelectors from '@store/users/users-selectors';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const loginStatus = useSelector(usersSelectors.getLogInStatus);
+  const userRole = useSelector(usersSelectors.getRole);
+  const email = useSelector(usersSelectors.getEmail);
 
   const doLogOut = () => {
     dispatch(logOutUser());
@@ -14,37 +17,52 @@ const Header = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand>Auction</Navbar.Brand>
+        <Navbar.Brand>
+          <Link className="header-link me-4" to="/">
+            Auction
+          </Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Navbar.Text>
-              <Link className="header-link me-4" to="/">
-                Home
-              </Link>
-            </Navbar.Text>
-            <Navbar.Text>
-              <Link className="header-link me-4" to="/lot/create">
-                Create lot
-              </Link>
-            </Navbar.Text>
-            <Navbar.Text>
-              <Link className="header-link me-4" to="/lot/list">
-                Lots list
-              </Link>
-            </Navbar.Text>
-          </Nav>
-          <Nav>
-            <Navbar.Text>
-              <Link className="header-link" to="/profile">
-                Profile
-              </Link>
-            </Navbar.Text>
-            <button className="header-button ms-4" onClick={doLogOut}>
-              LogOut
-            </button>
-          </Nav>
-        </Navbar.Collapse>
+        {loginStatus === true ? (
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              {userRole === 'ROLE_ADMIN' || userRole === 'ROLE_VENDOR' ? (
+                <Navbar.Text>
+                  <Link className="header-link me-4" to="/lot/create">
+                    Create lot
+                  </Link>
+                </Navbar.Text>
+              ) : (
+                ''
+              )}
+            </Nav>
+            <Nav className="justify-content-end">
+              <NavDropdown title={email} id="navbarScrollingDropdown">
+                <Navbar.Text>
+                  <Link className="header-link" to="/profile">
+                    <NavDropdown.ItemText>Profile</NavDropdown.ItemText>
+                  </Link>
+                </Navbar.Text>
+                <NavDropdown.Divider />
+                <button className="header-button" onClick={doLogOut}>
+                  <NavDropdown.ItemText>LogOut</NavDropdown.ItemText>
+                </button>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        ) : (
+          <Navbar.Collapse
+            id="responsive-navbar-nav"
+            className="justify-content-end">
+            <Nav>
+              <Navbar.Text>
+                <Link className="header-link me-4" to="/login">
+                  Login
+                </Link>
+              </Navbar.Text>
+            </Nav>
+          </Navbar.Collapse>
+        )}
       </Container>
     </Navbar>
   );
