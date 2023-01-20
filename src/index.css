@@ -26,4 +26,8 @@ code {
   border: 0;
   background-color: transparent;
   color: var(--bs-nav-link-color)!important;
+  width: 100%;
+  text-align: start;
+  padding: 0;
+  padding-right: 30px;
 }

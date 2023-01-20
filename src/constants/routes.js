@@ -1,5 +1,4 @@
 import RegisterPage from '@feature/RegisterPage/RegisterPage';
-import HomePage from '@feature/HomePage/HomePage';
 import LoginPage from '@feature/LoginPage/LoginPage';
 import ProfilePage from '@feature/ProfilePage/ProfilePage';
 import CreateLotPage from '@feature/CreateLotPage/CreateLotPage';
@@ -10,8 +9,8 @@ const routes = [
   {
     id: 1,
     path: '/',
-    element: <HomePage />,
-    protected: true,
+    element: <LotListPage />,
+    protected: false,
   },
   {
     id: 2,

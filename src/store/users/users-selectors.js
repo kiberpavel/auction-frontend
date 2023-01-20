@@ -26,6 +26,10 @@ const getId = state => {
   return state.users.id;
 };
 
+const getRole = state => {
+  return state.users.role;
+};
+
 export default {
   getEmail,
   getPassword,
@@ -34,4 +38,5 @@ export default {
   getLogInStatus,
   getToken,
   getId,
+  getRole,
 };

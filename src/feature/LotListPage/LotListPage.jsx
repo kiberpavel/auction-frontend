@@ -11,21 +11,26 @@ import {
 } from '@store/lots/lotsSlice';
 import lotsSelectors from '@store/lots/lots-selectors';
 import { useNavigate } from 'react-router-dom';
+import usersSelectors from '@store/users/users-selectors';
+import { getCurrentUser } from '@store/users/usersSlice';
 
 const LotListPage = () => {
   const dispatch = useDispatch();
   const lots = useSelector(lotsSelectors.getLots);
   const listOfLotsStatus = useSelector(lotsSelectors.getListOfLotsStatus);
+  const authStatus = useSelector(usersSelectors.getLogInStatus);
+  const userRole = useSelector(usersSelectors.getRole);
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(listOfLots());
+    authStatus ? dispatch(getCurrentUser()) : null;
+    dispatch(listOfLots(authStatus));
   }, []);
 
   const removeLot = id => {
     dispatch(deleteLot({ id: id }));
     setTimeout(() => {
-      dispatch(listOfLots());
+      dispatch(listOfLots(authStatus));
     }, 2000);
   };
 
@@ -61,17 +66,27 @@ const LotListPage = () => {
                   <Card.Text>{lot.price + '$'}</Card.Text>
                   <Card.Text>{lot.description}</Card.Text>
                 </Card.Body>
-                <section>
-                  <Button
-                    variant="primary"
-                    className="me-2"
-                    onClick={() => editLot(lot)}>
-                    Edit
-                  </Button>
-                  <Button variant="danger" onClick={() => removeLot(lot.id)}>
-                    Remove
-                  </Button>
-                </section>
+                {authStatus ? (
+                  userRole === 'ROLE_ADMIN' || userRole === 'ROLE_VENDOR' ? (
+                    <section>
+                      <Button
+                        variant="primary"
+                        className="me-2"
+                        onClick={() => editLot(lot)}>
+                        Edit
+                      </Button>
+                      <Button
+                        variant="danger"
+                        onClick={() => removeLot(lot.id)}>
+                        Remove
+                      </Button>
+                    </section>
+                  ) : (
+                    ''
+                  )
+                ) : (
+                  ''
+                )}
               </Card>
             </Col>
           ))}

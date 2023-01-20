@@ -62,6 +62,7 @@ const initialState = {
   token: '',
   isLogIn: false,
   id: '',
+  role: '',
 };
 
 const resetUserPendingData = state => {
@@ -134,6 +135,7 @@ export const usersSlice = createSlice({
     builder.addCase(getCurrentUser.fulfilled, (state, action) => {
       state.id = action.payload.id;
       state.email = action.payload.email;
+      state.role = action.payload.roles[0];
     });
   },
 });

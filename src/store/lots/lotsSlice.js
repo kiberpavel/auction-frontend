@@ -15,9 +15,9 @@ export const createLot = createAsyncThunk(
 
 export const listOfLots = createAsyncThunk(
   'lot/listOfLots',
-  async (_, { rejectWithValue }) => {
+  async (authStatus, { rejectWithValue }) => {
     try {
-      const response = await lotList();
+      const response = await lotList(authStatus);
       return response.data;
     } catch ({ response }) {
       return rejectWithValue(response.data.error);
