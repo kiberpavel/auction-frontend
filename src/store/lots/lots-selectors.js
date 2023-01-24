@@ -38,6 +38,10 @@ const getId = state => {
   return state.lots.id;
 };
 
+const getLot = state => {
+  return state.lots.lot;
+};
+
 export default {
   getPrice,
   getShortName,
@@ -49,4 +53,5 @@ export default {
   getLots,
   getListOfLotsStatus,
   getId,
+  getLot,
 };

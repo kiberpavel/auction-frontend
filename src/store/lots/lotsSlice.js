@@ -61,6 +61,7 @@ const initialState = {
   listOfLotsStatus: false,
   status: '',
   id: '',
+  lot: {},
 };
 
 export const lotsSlice = createSlice({
@@ -93,6 +94,9 @@ export const lotsSlice = createSlice({
     },
     setMessage: (state, action) => {
       state.message = action.payload;
+    },
+    setLot: (state, action) => {
+      state.lot = action.payload;
     },
   },
   extraReducers: builder => {
@@ -136,6 +140,7 @@ export const {
   setHasErrors,
   setErrorMessage,
   setMessage,
+  setLot,
 } = lotsSlice.actions;
 
 export default lotsSlice.reducer;
