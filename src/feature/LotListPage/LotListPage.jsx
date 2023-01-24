@@ -8,6 +8,7 @@ import {
   setDescription,
   setPrice,
   setId,
+  setLot,
 } from '@store/lots/lotsSlice';
 import lotsSelectors from '@store/lots/lots-selectors';
 import { useNavigate } from 'react-router-dom';
@@ -42,6 +43,11 @@ const LotListPage = () => {
     navigate('/lot/update');
   };
 
+  const currentLot = lot => {
+    dispatch(setLot(lot));
+    navigate('/lot/current');
+  };
+
   return listOfLotsStatus === false ? (
     <Container className="vh-100 mt-5">
       <h1 className="mx-auto w-25">
@@ -66,6 +72,9 @@ const LotListPage = () => {
                   <Card.Text>{lot.price + '$'}</Card.Text>
                   <Card.Text>{lot.description}</Card.Text>
                 </Card.Body>
+                <Button variant="success" onClick={() => currentLot(lot)}>
+                  View
+                </Button>
                 {authStatus ? (
                   userRole === 'ROLE_ADMIN' || userRole === 'ROLE_VENDOR' ? (
                     <section>

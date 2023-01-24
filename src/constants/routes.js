@@ -4,6 +4,7 @@ import ProfilePage from '@feature/ProfilePage/ProfilePage';
 import CreateLotPage from '@feature/CreateLotPage/CreateLotPage';
 import LotListPage from '@feature/LotListPage/LotListPage';
 import EditLotPage from '@feature/EditLotPage/EditLotPage';
+import LotPage from '@feature/LotPage/LotPage';
 
 const routes = [
   {
@@ -47,6 +48,12 @@ const routes = [
     path: '/lot/update',
     element: <EditLotPage />,
     protected: true,
+  },
+  {
+    id: 8,
+    path: '/lot/current',
+    element: <LotPage />,
+    protected: false,
   },
 ];
 
