@@ -72,30 +72,32 @@ const LotListPage = () => {
                   <Card.Text>{lot.price + '$'}</Card.Text>
                   <Card.Text>{lot.description}</Card.Text>
                 </Card.Body>
-                <Button variant="success" onClick={() => currentLot(lot)}>
-                  View
-                </Button>
-                {authStatus ? (
-                  userRole === 'ROLE_ADMIN' || userRole === 'ROLE_VENDOR' ? (
-                    <section>
-                      <Button
-                        variant="primary"
-                        className="me-2"
-                        onClick={() => editLot(lot)}>
-                        Edit
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => removeLot(lot.id)}>
-                        Remove
-                      </Button>
-                    </section>
+                <section>
+                  <Button variant="success" onClick={() => currentLot(lot)}>
+                    View
+                  </Button>
+                  {authStatus ? (
+                    userRole === 'ROLE_ADMIN' || userRole === 'ROLE_VENDOR' ? (
+                      <>
+                        <Button
+                          variant="primary"
+                          className="ms-2 me-2"
+                          onClick={() => editLot(lot)}>
+                          Edit
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => removeLot(lot.id)}>
+                          Remove
+                        </Button>
+                      </>
+                    ) : (
+                      ''
+                    )
                   ) : (
                     ''
-                  )
-                ) : (
-                  ''
-                )}
+                  )}
+                </section>
               </Card>
             </Col>
           ))}
