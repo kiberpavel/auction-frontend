@@ -42,6 +42,10 @@ const getLot = state => {
   return state.lots.lot;
 };
 
+const getRaisedPrice = state => {
+  return state.lots.raisedPrice;
+};
+
 export default {
   getPrice,
   getShortName,
@@ -54,4 +58,5 @@ export default {
   getListOfLotsStatus,
   getId,
   getLot,
+  getRaisedPrice,
 };
