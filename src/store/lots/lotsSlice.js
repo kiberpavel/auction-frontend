@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { lotCreation, lotList, lotDelete, lotUpdate } from '@api/lot';
+import {
+  lotCreation,
+  lotList,
+  lotDelete,
+  lotUpdate,
+  lotPriceUp,
+} from '@api/lot';
 
 export const createLot = createAsyncThunk(
   'lot/createLot',
@@ -49,6 +55,18 @@ export const editLot = createAsyncThunk(
   },
 );
 
+export const changeLotPrice = createAsyncThunk(
+  'lot/changeLotPrice',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await lotPriceUp(data);
+      return response.data;
+    } catch ({ response }) {
+      return rejectWithValue(response.data.error);
+    }
+  },
+);
+
 const initialState = {
   price: 0,
   shortName: '',
@@ -62,6 +80,7 @@ const initialState = {
   status: '',
   id: '',
   lot: {},
+  raisedPrice: 0,
 };
 
 export const lotsSlice = createSlice({
@@ -98,6 +117,9 @@ export const lotsSlice = createSlice({
     setLot: (state, action) => {
       state.lot = action.payload;
     },
+    setRaisedPrice: (state, action) => {
+      state.raisedPrice = action.payload;
+    },
   },
   extraReducers: builder => {
     builder.addCase(createLot.pending, state => {
@@ -127,6 +149,14 @@ export const lotsSlice = createSlice({
       state.hasError = true;
       state.errorMessage = action.payload;
     });
+    builder.addCase(changeLotPrice.fulfilled, (state, action) => {
+      state.message = action.payload.message;
+      state.raisedPrice = 0;
+    });
+    builder.addCase(changeLotPrice.rejected, (state, action) => {
+      state.hasError = true;
+      state.errorMessage = action.payload;
+    });
   },
 });
 
@@ -141,6 +171,7 @@ export const {
   setErrorMessage,
   setMessage,
   setLot,
+  setRaisedPrice,
 } = lotsSlice.actions;
 
 export default lotsSlice.reducer;
