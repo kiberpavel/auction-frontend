@@ -59,48 +59,53 @@ const LotListPage = () => {
       <h1 className="mx-auto w-25 mb-xl-5">List of lots</h1>
       <Container className="vh-100 mt-3">
         <Row xs={1} md={3} className="g-4">
-          {lots.map(lot => (
-            <Col key={lot.id}>
-              <Card style={{ width: '18rem' }}>
-                <Card.Img
-                  variant="top"
-                  src={process.env.REACT_APP_IMAGE_PATH + lot.imageUrl}
-                  className="img-responsive"
-                />
-                <Card.Body>
-                  <Card.Title>{lot.shortName}</Card.Title>
-                  <Card.Text>{lot.price + '$'}</Card.Text>
-                  <Card.Text>{lot.description}</Card.Text>
-                </Card.Body>
-                <section>
-                  <Button variant="success" onClick={() => currentLot(lot)}>
-                    View
-                  </Button>
-                  {authStatus ? (
-                    userRole === 'ROLE_ADMIN' || userRole === 'ROLE_VENDOR' ? (
-                      <>
-                        <Button
-                          variant="primary"
-                          className="ms-2 me-2"
-                          onClick={() => editLot(lot)}>
-                          Edit
-                        </Button>
-                        <Button
-                          variant="danger"
-                          onClick={() => removeLot(lot.id)}>
-                          Remove
-                        </Button>
-                      </>
+          {lots.map(lot =>
+            lot.status === 'active' ? (
+              <Col key={lot.id}>
+                <Card style={{ width: '18rem' }}>
+                  <Card.Img
+                    variant="top"
+                    src={process.env.REACT_APP_IMAGE_PATH + lot.imageUrl}
+                    className="img-responsive"
+                  />
+                  <Card.Body>
+                    <Card.Title>{lot.shortName}</Card.Title>
+                    <Card.Text>{lot.price + '$'}</Card.Text>
+                    <Card.Text>{lot.description}</Card.Text>
+                  </Card.Body>
+                  <section>
+                    <Button variant="success" onClick={() => currentLot(lot)}>
+                      View
+                    </Button>
+                    {authStatus ? (
+                      userRole === 'ROLE_ADMIN' ||
+                      userRole === 'ROLE_VENDOR' ? (
+                        <>
+                          <Button
+                            variant="primary"
+                            className="ms-2 me-2"
+                            onClick={() => editLot(lot)}>
+                            Edit
+                          </Button>
+                          <Button
+                            variant="danger"
+                            onClick={() => removeLot(lot.id)}>
+                            Remove
+                          </Button>
+                        </>
+                      ) : (
+                        ''
+                      )
                     ) : (
                       ''
-                    )
-                  ) : (
-                    ''
-                  )}
-                </section>
-              </Card>
-            </Col>
-          ))}
+                    )}
+                  </section>
+                </Card>
+              </Col>
+            ) : (
+              ''
+            ),
+          )}
         </Row>
       </Container>
     </div>

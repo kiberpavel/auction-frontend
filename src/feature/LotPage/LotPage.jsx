@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert, Button, Container, Form, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import lotsSelectors from '@store/lots/lots-selectors';
@@ -11,6 +11,8 @@ import {
   setMessage,
 } from '@store/lots/lotsSlice';
 import { useNavigate } from 'react-router-dom';
+import { addOrder, setTime } from '@store/orders/orderSlice';
+import ordersSelectors from '@store/orders/orders-selectors';
 
 const LotPage = () => {
   const lot = useSelector(lotsSelectors.getLot);
@@ -19,9 +21,10 @@ const LotPage = () => {
   const hasError = useSelector(lotsSelectors.getLotErrorStatus);
   const error = useSelector(lotsSelectors.getLotErrorMessage);
   const message = useSelector(lotsSelectors.getLotMessage);
+  const timer = useSelector(ordersSelectors.getTime);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const endAuctionTime = new Date(lot.endTradeTime);
   const setPrice = event => {
     dispatch(setRaisedPrice(Number(event.target.value)));
   };
@@ -37,6 +40,20 @@ const LotPage = () => {
       navigate('/');
     }, 3000);
   };
+
+  const orderSet = () => {
+    dispatch(addOrder({ lotId: lot.id }));
+    navigate('/');
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      timer > endAuctionTime && authUser === true ? orderSet() : null;
+      dispatch(setTime(Date.now()));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [timer]);
 
   return (
     <Container className="vh-100 mt-5">
@@ -62,7 +79,7 @@ const LotPage = () => {
         <p>Description: {lot.description}</p>
         <p>End of auction: {lot.endTradeTime}</p>
         <p>Price: {lot.price}$</p>
-        {authUser === true ? (
+        {authUser === true && endAuctionTime > timer ? (
           <Form className="w-100 d-flex">
             <Form.Label className="me-3">Raise the price to:</Form.Label>
             <Form.Control className="w-25" type="text" onChange={setPrice} />
