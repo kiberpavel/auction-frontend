@@ -4,12 +4,14 @@ import { logOutUser } from '@store/users/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import usersSelectors from '@store/users/users-selectors';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import ordersSelectors from '@store/orders/orders-selectors';
 
 const Header = () => {
   const dispatch = useDispatch();
   const loginStatus = useSelector(usersSelectors.getLogInStatus);
   const userRole = useSelector(usersSelectors.getRole);
   const email = useSelector(usersSelectors.getEmail);
+  const count = useSelector(ordersSelectors.getCount);
 
   const doLogOut = () => {
     dispatch(logOutUser());
@@ -48,6 +50,12 @@ const Header = () => {
                   <NavDropdown.ItemText>LogOut</NavDropdown.ItemText>
                 </button>
               </NavDropdown>
+              <Navbar.Text>
+                <Link className="header-link me-1" to="/cart">
+                  Cart:
+                  <span className="ms-1 text-light">{count}</span>
+                </Link>
+              </Navbar.Text>
             </Nav>
           </Navbar.Collapse>
         ) : (

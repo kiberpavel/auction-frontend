@@ -5,6 +5,7 @@ import CreateLotPage from '@feature/CreateLotPage/CreateLotPage';
 import LotListPage from '@feature/LotListPage/LotListPage';
 import EditLotPage from '@feature/EditLotPage/EditLotPage';
 import LotPage from '@feature/LotPage/LotPage';
+import CartPage from '@feature/CartPage/CartPage';
 
 const routes = [
   {
@@ -54,6 +55,12 @@ const routes = [
     path: '/lot/current',
     element: <LotPage />,
     protected: false,
+  },
+  {
+    id: 9,
+    path: '/cart',
+    element: <CartPage />,
+    protected: true,
   },
 ];
 

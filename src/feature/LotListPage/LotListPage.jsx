@@ -14,6 +14,7 @@ import lotsSelectors from '@store/lots/lots-selectors';
 import { useNavigate } from 'react-router-dom';
 import usersSelectors from '@store/users/users-selectors';
 import { getCurrentUser } from '@store/users/usersSlice';
+import { userOrders } from '@store/orders/orderSlice';
 
 const LotListPage = () => {
   const dispatch = useDispatch();
@@ -22,11 +23,16 @@ const LotListPage = () => {
   const authStatus = useSelector(usersSelectors.getLogInStatus);
   const userRole = useSelector(usersSelectors.getRole);
   const navigate = useNavigate();
+  const userId = useSelector(usersSelectors.getId);
 
   useEffect(() => {
     authStatus ? dispatch(getCurrentUser()) : null;
     dispatch(listOfLots(authStatus));
   }, []);
+
+  useEffect(() => {
+    authStatus && userId !== '' ? dispatch(userOrders(userId)) : null;
+  }, [userId]);
 
   const removeLot = id => {
     dispatch(deleteLot({ id: id }));

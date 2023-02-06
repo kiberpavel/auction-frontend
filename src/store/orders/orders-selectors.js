@@ -14,9 +14,24 @@ const getTime = state => {
   return state.orders.time;
 };
 
+const getCount = state => {
+  return state.orders.count;
+};
+
+const getUserOrders = state => {
+  return state.orders.userOrders;
+};
+
+const getTotalSum = state => {
+  return state.orders.totalSum;
+};
+
 export default {
   getMessage,
   getErrorStatus,
   getLotErrorMessage,
   getTime,
+  getCount,
+  getUserOrders,
+  getTotalSum,
 };
